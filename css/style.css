@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: black;
+  font-family: "Press Start 2P";
+}
+
+.container {
+  width: 1000px;
+  height: 100%;
+  margin: auto;
+}
+
+.game-div {
+  background-color: black;
+  position: relative;
+  display: block;
+  width: 1000px;
+  height: 710px;
+  margin: auto;
+  border-right: 3px white solid;
+  border-left: 3px white solid;
+}
+
+.score-board {
+  width: 100%;
+  height: 83px;
+  background: black;
+  border: 3px solid white;
+}
+
+.left-label {
+  width: 700px;
+  height: 100%;
+  float: left;
+  background-color: black;
+}
+
+.left-label p {
+  font-size: 20px;
+  line-height: 75px;
+  display: inline-block;
+  color: white;
+}
+
+.text {
+  padding: 0px 10px 0px 50px;
+}
+
+.score-number {
+  padding: 0px 50px 0px 20px;
+}
+
+.lives-number {
+  padding: 0px 50px 0px 20px;
+}
+
+.level-number {
+  padding: 0px 50px 0px 0px;
+}
+
+.right-label {
+  height: 100%;
+  float: left;
+  background-color: black;
+  color: white;
+}
+
+.right-label p {
+  font-size: 20px;
+  line-height: 75px;
+  display: inline-block;
+  color: white;
+}
+
+.right-label .text {
+  padding-left: 0px;
+}
+
+.enemy {
+  background: red;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: hidden;
+}
+
+.one {
+  background-image: url("/images/orange-invader.png");
+}
+
+.two {
+  background-image: url("/images/green-invader.png");
+  /* background: green; */
+}
+
+.three {
+  background-image: url("/images/blue-invader.png");
+  /* background: coral; */
+}
+
+.four {
+  background-image: url("/images/red-invader2.png");
+}
+
+.player {
+  background-image: url("/images/ship.png");
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: hidden;
+}
+
+.shot {
+  width: 5px;
+  height: 5px;
+  background-color: white;
+  position: absolute;
+  display: none;
+}
+
+.game-message {
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+    font-size: 34px;
+    position: absolute;
+    text-align: center;
+    visibility:hidden;
+    color: white;
+    line-height: 65px;
+}
+
+.game-message .message-1 {
+  color:white;
+}
+
+.game-message .message-2 {
+  font-size:23px !important;
+}
+
