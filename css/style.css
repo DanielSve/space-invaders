@@ -30,14 +30,14 @@
   border: 3px solid white;
 }
 
-.left-label {
+.scores-left {
   width: 700px;
   height: 100%;
   float: left;
   background-color: black;
 }
 
-.left-label p {
+.scores-left p {
   font-size: 20px;
   line-height: 75px;
   display: inline-block;
@@ -60,21 +60,21 @@
   padding: 0px 50px 0px 0px;
 }
 
-.right-label {
+.scores-right {
   height: 100%;
   float: left;
   background-color: black;
   color: white;
 }
 
-.right-label p {
+.scores-right p {
   font-size: 20px;
   line-height: 75px;
   display: inline-block;
   color: white;
 }
 
-.right-label .text {
+.scores-right .text {
   padding-left: 0px;
 }
 
@@ -87,25 +87,25 @@
 }
 
 .one {
-  background-image: url("/images/orange-invader.png");
+  background-image: url("../images/orange-invader.png");
 }
 
 .two {
-  background-image: url("/images/green-invader.png");
+  background-image: url("../images/green-invader.png");
   /* background: green; */
 }
 
 .three {
-  background-image: url("/images/blue-invader.png");
+  background-image: url("../images/blue-invader.png");
   /* background: coral; */
 }
 
 .four {
-  background-image: url("/images/red-invader2.png");
+  background-image: url("../images/red-invader2.png");
 }
 
 .player {
-  background-image: url("/images/ship.png");
+  background-image: url("../images/ship.png");
   width: 50px;
   height: 50px;
   position: absolute;
@@ -121,25 +121,24 @@
 }
 
 .game-message {
-    width: 100%;
-    height: 100%;
-    display: flex; 
-    flex-direction: column;
-    justify-content: center;
-    background-color: black;
-    font-size: 34px;
-    position: absolute;
-    text-align: center;
-    visibility:hidden;
-    color: white;
-    line-height: 65px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: black;
+  font-size: 34px;
+  position: absolute;
+  text-align: center;
+  visibility: hidden;
+  color: white;
+  line-height: 65px;
 }
 
 .game-message .message-1 {
-  color:white;
+  color: white;
 }
 
 .game-message .message-2 {
-  font-size:23px !important;
+  font-size: 23px !important;
 }
-
