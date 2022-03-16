@@ -3,14 +3,8 @@
 import * as movement from "./movement.js";
 import * as render from "./render.js";
 import * as score from "./score.js";
-export let enemyMoveMs = 430;
+let enemyMoveMs = 430;
 let running = false;
-
-export const initiateNewLevel = () => {
-  movement.increaseEnemyRows();
-  movement.setEnemyPositions();
-  movement.setMovementVariables();
-};
 
 export const startNewGame = () => {
   score.reset();
@@ -27,7 +21,13 @@ export const startNewGame = () => {
   running = true;
 };
 
-export const retryLevel = () => {
+const initiateNewLevel = () => {
+  movement.increaseEnemyRows();
+  movement.setEnemyPositions();
+  movement.setMovementVariables();
+};
+
+const retryLevel = () => {
   render.clear();
   render.initiateAll();
   score.resetRetryLevel();
