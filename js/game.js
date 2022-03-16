@@ -3,6 +3,7 @@
 import * as movement from "./movement.js";
 import * as render from "./render.js";
 import * as score from "./score.js";
+
 let enemyMoveMs = 430;
 let running = false;
 
