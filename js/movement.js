@@ -5,16 +5,16 @@ import * as render from "./render.js";
 import * as game from "./game.js";
 
 let xDir = 25;
-let skipXmovement = 0;
+let skipXmovement = false;
 let enemiesXY = [];
 let shotSpeed = -20;
 let enemiesCount = 0;
-let width = document.querySelector(".game-div").offsetWidth;
-let height = document.querySelector(".game-div").offsetHeight;
+let width = render.gameElement.offsetWidth;
+let height = render.gameElement.offsetHeight;
 let enemiesWidth = 0;
 let enemiesHeight = 0;
 let playerWidth = "";
-let playerX = 500 - 50 / 2;
+let playerX = width / 2 - 25;
 let playerY = height - 70;
 let shotsXY = [];
 let enemyRows = 2;
@@ -115,7 +115,7 @@ export const initiateShots = () => {
 
 export const resetShot = (index) => {
   shotsXY[index][1] = playerY;
-  shotsXY[index][0] = playerX + 23;
+  shotsXY[index][0] = playerX + playerWidth;
 };
 
 export const checkCollision = () => {

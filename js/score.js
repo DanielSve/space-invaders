@@ -2,8 +2,6 @@
 
 import { enemiesCount } from "./movement.js";
 
-let scoreEl = document.querySelector(".score-number");
-let livesEl = document.querySelector(".lives-number");
 let lives = 3;
 let score = 0;
 let level = 1;
@@ -13,7 +11,7 @@ let gameFinished = false;
 let retryLevel = false;
 let scorePerEnemyShot = 50;
 
-export { scoreEl, livesEl, lives, score, level, nextLevel, gameOver, gameFinished, retryLevel };
+export {lives, score, level, nextLevel, gameOver, gameFinished, retryLevel };
 
 export const checkGameStatus = () => {
   if (enemiesCount < 1) {

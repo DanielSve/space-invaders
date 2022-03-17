@@ -6,6 +6,8 @@ export let message1 = "";
 export let message2 = "";
 export let gameElement = document.querySelector(".game-div");
 export let levelElement = document.querySelector(".level-number");
+export let scoreEl = document.querySelector(".score-number");
+export let livesEl = document.querySelector(".lives-number");
 export let shots = [];
 export let player = "";
 
@@ -16,7 +18,7 @@ import {
   shotsXY,
 } from "./movement.js";
 
-import { score, lives, livesEl, scoreEl, level } from "./score.js";
+import { score, lives, level } from "./score.js";
 
 export const updateScreen = () => {
   for (let i = 0; i < enemies.length; i++) {
