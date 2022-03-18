@@ -1,21 +1,21 @@
 "use strict";
 
 export let enemies = [];
-export let gameMessage = "";
-export let message1 = "";
-export let message2 = "";
+export let gameMessage;
+export let message1;
+export let message2;
 export let gameElement = document.querySelector(".game-div");
 export let levelElement = document.querySelector(".level-number");
 export let scoreEl = document.querySelector(".score-number");
 export let livesEl = document.querySelector(".lives-number");
 export let shots = [];
-export let player = "";
+export let player;
 
 import {
-  enemiesXY,
+  enemiesPos,
   playerX,
   playerY,
-  shotsXY,
+  shotsPos,
 } from "./movement.js";
 
 import { score, lives, level } from "./score.js";
@@ -23,15 +23,15 @@ import { score, lives, level } from "./score.js";
 export const updateScreen = () => {
   for (let i = 0; i < enemies.length; i++) {
     for (let j = 0; j < enemies[i].length; j++) {
-      enemies[i][j].style.left = enemiesXY[i][j][0] + "px";
-      enemies[i][j].style.top = enemiesXY[i][j][1] + "px";
+      enemies[i][j].style.left = enemiesPos[i][j].x + "px";
+      enemies[i][j].style.top = enemiesPos[i][j].y + "px";
       enemies[i][j].style.visibility = "visible";
     }
   }
   shots.forEach((shot, i) => {
-    shots[i].style.top = shotsXY[i][1] + "px";
-    shots[i].style.left = shotsXY[i][0] + "px";
-    if(shotsXY[i][1] < playerY) {
+    shots[i].style.top = shotsPos[i].y + "px";
+    shots[i].style.left = shotsPos[i].x + "px";
+    if(shotsPos[i].y < playerY) {
       shots[i].style.display = "block";
     } else shots[i].style.display = "none";
   });

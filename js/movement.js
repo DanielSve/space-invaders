@@ -6,20 +6,20 @@ import * as game from "./game.js";
 
 let xDir = 25;
 let skipXmovement = false;
-let enemiesXY = [];
+let enemiesPos = [];
+let shotsPos = [];
 let shotSpeed = -20;
 let enemiesCount = 0;
 let width = render.gameElement.offsetWidth;
 let height = render.gameElement.offsetHeight;
-let enemiesWidth = 0;
-let enemiesHeight = 0;
-let playerWidth = "";
+let enemiesWidth;
+let enemiesHeight;
+let playerWidth;
 let playerX = width / 2 - 25;
 let playerY = height - 70;
-let shotsXY = [];
 let enemyRows = 2;
 
-export { enemiesXY, playerX, playerY, shotsXY, enemiesCount };
+export { enemiesPos, playerX, playerY, shotsPos, enemiesCount };
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") {
@@ -28,25 +28,25 @@ document.addEventListener("keydown", (e) => {
     playerX -= 20;
   }
   if (e.key === "Shift") {
-    shotsXY[0][1] = playerY - 5;
-    shotsXY.push(shotsXY.shift());
+    shotsPos[0].y = playerY - 5;
+    shotsPos.push(shotsPos.shift());
   } else if (e.key === "Enter" && !game.running) {
     game.startNewGame();
   }
 });
 
 export const setEnemyPositions = () => {
-  enemiesXY = [];
-  let y = -40;
+  enemiesPos = [];
+  let yValue = -40;
   for (let i = 0; i < enemyRows; i++) {
     let row = [];
-    y += 70;
-    let x = 75;
+    yValue += 70;
+    let xValue = 75;
     for (let j = 0; j < 10; j++) {
-      row.push([x, y]);
-      x += 80;
+      row.push({x: xValue, y: yValue});
+      xValue += 80;
     }
-    enemiesXY.push(row);
+    enemiesPos.push(row);
   }
 };
 
@@ -66,18 +66,18 @@ export const moveEnemies = () => {
   }
   if (!skipXmovement) {
     for (let i = 0; i < enemyRows; i++) {
-      for (let j = 0; j < enemiesXY[0].length; j++) {
-        enemiesXY[i][j][0] += xDir;
+      for (let j = 0; j < enemiesPos[0].length; j++) {
+        enemiesPos[i][j].x += xDir;
       }
     }
   }
 };
 
 const checkDirection = () => {
-  for (let i = 0; i < enemiesXY.length; i++) {
-    for (let j = 0; j < enemiesXY[0].length; j++) {
+  for (let i = 0; i < enemiesPos.length; i++) {
+    for (let j = 0; j < enemiesPos[0].length; j++) {
       if (enemyCollidesWithEdges(i, j)) {
-        xDir = enemiesXY[i][j][0] <= 0 + 40 ? 25 : -25;
+        xDir = enemiesPos[i][j].x <= 0 + 40 ? 25 : -25;
         lowerEnemies();
         skipXmovement = true;
         return;
@@ -87,35 +87,35 @@ const checkDirection = () => {
 };
 
 const enemyCollidesWithEdges = (i, j) =>
-  enemiesXY[i][j][0] <= 0 + 40 ||
-  enemiesXY[i][j][0] >= width - enemiesWidth - 40;
+  enemiesPos[i][j].x <= 0 + 40 ||
+  enemiesPos[i][j].x >= width - enemiesWidth - 40;
 
 const lowerEnemies = () => {
   for (let i = 0; i < enemyRows; i++) {
-    for (let j = 0; j < enemiesXY[i].length; j++) {
-      enemiesXY[i][j][1] += 55;
+    for (let j = 0; j < enemiesPos[i].length; j++) {
+      enemiesPos[i][j].y += 55;
     }
   }
 };
 
 export const moveShots = () => {
-  shotsXY.forEach((shot, i) => {
-    if (shotsXY[i][1] >= playerY) {
-      shotsXY[i][0] = playerX + 23;
+  shotsPos.forEach((shot, i) => {
+    if (shotsPos[i].y >= playerY) {
+      shotsPos[i].x = playerX + 23;
     } else {
-      shotsXY[i][1] += shotSpeed;
+      shotsPos[i].y += shotSpeed;
     }
   });
 };
 
 export const initiateShots = () => {
-  shotsXY = [];
-  render.shots.forEach((s, i) => shotsXY.push([playerX + 23, playerY]));
+  shotsPos = [];
+  render.shots.forEach((s, i) => shotsPos.push({x: playerX + 23,y: playerY}));
 };
 
 export const resetShot = (index) => {
-  shotsXY[index][1] = playerY;
-  shotsXY[index][0] = playerX + playerWidth;
+  shotsPos[index].y = playerY;
+  shotsPos[index].x = playerX + playerWidth/2;
 };
 
 export const checkCollision = () => {
@@ -129,10 +129,9 @@ export const checkCollision = () => {
 };
 
 export const collisionWithEnemy = () => {
-  for (let i = 0; i < enemiesXY.length; i++) {
-    for (let j = 0; j < enemiesXY[0].length; j++) {
-      if (enemiesXY[i][j][1] + enemiesHeight > playerY) {
-        // reset();
+  for (let i = 0; i < enemiesPos.length; i++) {
+    for (let j = 0; j < enemiesPos[0].length; j++) {
+      if (enemiesPos[i][j].y + enemiesHeight > playerY) {
         score.subtractLife();
         break;
       }
@@ -141,20 +140,20 @@ export const collisionWithEnemy = () => {
 };
 
 export const shotCollision = () => {
-  for (let i = 0; i < shotsXY.length; i++) {
-    if (checkEnemy(shotsXY[i][0], shotsXY[i][1]) || shotsXY[i][1] <= 0) {
+  for (let i = 0; i < shotsPos.length; i++) {
+    if (checkEnemy(shotsPos[i].x, shotsPos[i].y) || shotsPos[i].y <= 0) {
       resetShot(i);
     }
   }
 };
 
 export const checkEnemy = (x, y) => {
-  for (let i = 0; i < enemiesXY.length; i++) {
-    for (let j = 0; j < enemiesXY[0].length; j++) {
+  for (let i = 0; i < enemiesPos.length; i++) {
+    for (let j = 0; j < enemiesPos[0].length; j++) {
       if (checkXRange(i, j, x) && checkYRange(i, j, y)) {
         render.hideEnemy(i, j);
-        enemiesXY[i][j][0] = "Removed";
-        enemiesXY[i][j][1] = "Removed";
+        enemiesPos[i][j].x = "Removed";
+        enemiesPos[i][j].y = "Removed";
         score.increaseScore();
         enemiesCount--;
         return true;
@@ -164,10 +163,10 @@ export const checkEnemy = (x, y) => {
 };
 
 export const checkYRange = (i, j, y) =>
-  y < enemiesXY[i][j][1] + enemiesHeight && y > enemiesXY[i][j][1];
+  y < enemiesPos[i][j].y + enemiesHeight && y > enemiesPos[i][j].y;
 
 export const checkXRange = (i, j, x) =>
-  x < enemiesXY[i][j][0] + enemiesWidth && x > enemiesXY[i][j][0];
+  x < enemiesPos[i][j].x + enemiesWidth && x > enemiesPos[i][j].x;
 
 export const increaseEnemyRows = () => enemyRows++;
 
